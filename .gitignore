@@ -1,0 +1,19 @@
+# Python virtual environment
+/venv/
+
+# Python cache files
+__pycache__/
+*.pyc
+
+# Data files
+*.json
+
+# IDE/Editor specific files
+.vscode/
+.idea/
+
+# Other common Python ignores
+*.egg-info/
+dist/
+build/
+*.log
