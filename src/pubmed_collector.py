@@ -2,7 +2,7 @@ from Bio import Entrez
 import json
 import time
 
-Entrez.email = "ankithtn2003@gmail.com" 
+Entrez.email = "" 
 
 def search_pubmed(query, max_results=500):
     """Search PubMed and get paper IDs"""
