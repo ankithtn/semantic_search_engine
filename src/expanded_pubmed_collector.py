@@ -83,7 +83,7 @@ def fetch_abstract(id_list):
 def collect_large_datasets():
     """Collect 3,000-5000 medical papers"""
 
-    # Expanded medical topics - 25 topics * 200 papers = 5000 papers
+    # Expanded medical topics - 32 topics * 200 papers = 6400 papers
     topics = [
         # Chronic diseases
         "diabetes mellitus treatment",
@@ -92,34 +92,44 @@ def collect_large_datasets():
         "chronic kidney disease",
         "liver cirrhosis",
         
-
         # Cancer
         "breast cancer treatment",
         "lung cancer therapy",
         "colorectal cancer",
         "prostate cancer",
         "leukemia treatment",
-
-        # Neurological 
+        
+        # Neurological
         "alzheimer disease",
         "parkinson disease",
         "multiple sclerosis",
         "epilepsy treatment",
         "stroke rehabilitation",
-
+        
         # Mental health
         "depression treatment",
         "anxiety disorders",
         "schizophrenia therapy",
         "bipolar disorder",
         "post traumatic stress disorder",
-
+        
         # Infectious diseases
         "tuberculosis treatment",
         "HIV therapy",
         "hepatitis treatment",
         "malaria prevention",
-        "COVID-19 treatment"
+        "COVID-19 treatment",
+
+        #Lifestyle & Chronic Conditions
+        "nutrition and cardiovascular health",
+        "diabetes complications prevention",
+        "physical activity and mental well-being",
+
+        #Neurology & Mental Health
+        "sleep disorders treatment",
+        "neurodegenerative diseases biomarkers",
+        "mental health digital interventions",
+        "autism spectrum disorder research"    
     ]
 
     all_papers = []
