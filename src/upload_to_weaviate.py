@@ -14,26 +14,44 @@ with weaviate.connect_to_local() as client:
 
 def create_schema(client):
     # Delete existing collection if it exists
-    client.collections.delete("MedicalPaper")
+    if client.collections.exists("MedicalPaper"):
+        client.collections.delete("MedicalPaper")
+        print("Deleted existing collection")
 
     # Define collection configuration
     client.collections.create(
         name="MedicalPaper",
-        description="A class to hold medical research papers",
+        description="Medical research papers and abstracts",
         vector_config=Configure.Vectors.self_provided(),  # We provide our own embeddings
         properties=[
-            Property(name="title", data_type=DataType.TEXT, description="Paper title"),
-            Property(name="abstract", data_type=DataType.TEXT, description="Paper abstract content"),
-            Property(name="pmid", data_type=DataType.TEXT, description="PubMed ID"),
-            Property(name="journal", data_type=DataType.TEXT, description="Journal name"),
+            Property(
+                name="title", 
+                data_type=DataType.TEXT, 
+                description="Paper title"
+            ),
+            Property(
+                name="abstract", 
+                data_type=DataType.TEXT, 
+                description="Paper abstract content"
+            ),
+            Property(
+                name="pmid", 
+                data_type=DataType.TEXT, 
+                description="PubMed ID"
+            ),
+            Property(
+                name="journal", 
+                data_type=DataType.TEXT, 
+                description="Journal name"
+            ),
         ]
     )
-    print("Schema created!")
+    print("Schema or collection created!")
 
 def upload_papers(client):
     """Upload papers with embeddings to Weaviate"""
     # Load collected papers
-    with open('medical_papers.json', 'r', encoding='utf-8') as f:
+    with open('medical_papers_large.json', 'r', encoding='utf-8') as f:
         papers = json.load(f)
 
     print(f"Uploading {len(papers)} papers to Weaviate...")
@@ -57,7 +75,8 @@ def upload_papers(client):
                         "title": paper["title"],
                         "abstract": paper["abstract"],
                         "pmid": paper["pmid"],
-                        "journal": paper["journal"]
+                        "journal": paper["journal"],
+                        "year": paper.get("year", "Unkown")
                     },
                     vector=vector
                 )
@@ -67,6 +86,8 @@ def upload_papers(client):
                 continue
     print(f"Successfully uploaded {successful_uploads} papers!")
     return successful_uploads
+
+
 
 if __name__ == "__main__":
     # Use context manager for Weaviate client
@@ -81,4 +102,4 @@ if __name__ == "__main__":
         collection = client.collections.get("MedicalPaper")
         result = collection.aggregate.over_all(total_count=True)
         total_count = result.total_count
-        print(f"Database contains {total_count} papers!")
+        print(f" Vector Database contains {total_count} papers!")
