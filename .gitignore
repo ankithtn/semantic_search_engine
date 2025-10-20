@@ -1,19 +1,38 @@
-# Python virtual environment
-/venv/
-
-# Python cache files
+# --- Python ---
+venv/
 __pycache__/
 *.pyc
+*.egg-info/
+build/
+dist/
+*.log
 
-# Data files
-*.json
+# --- Environment Variables ---
+.env
+.env.local
+*.pem
 
-# IDE/Editor specific files
+# --- Backend specific ---
+backend/venv/
+backend/__pycache__/
+backend/*.pyc
+backend/.pytest_cache/
+
+# --- Frontend specific ---
+frontend/node_modules/
+frontend/dist/
+frontend/.env.local
+
+# --- Data ---
+data/*.json
+data/logs/
+
+# --- IDE / Editor ---
 .vscode/
 .idea/
+*.swp
+*.swo
 
-# Other common Python ignores
-*.egg-info/
-dist/
-build/
-*.log
+# --- OS ---
+.DS_Store
+Thumbs.db

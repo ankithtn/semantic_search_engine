@@ -55,7 +55,6 @@ def upload_papers(client):
         papers = json.load(f)
 
     print(f"Uploading {len(papers)} papers to Weaviate...")
-
     successful_uploads = 0
     collection = client.collections.get("MedicalPaper")
 
