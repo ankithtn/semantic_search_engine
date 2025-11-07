@@ -1,31 +1,27 @@
 import React from "react";
 
-const ModeSelector = ({selectedMode, onModeChange}) => {
-    const modes = [
-        {id: 'semantic', label: 'Semantic', description: 'Meaning-based search'},
-        {id: 'keyword', label: 'Keyword', description: 'Exact word matching'},
-        {id: 'hybrid', label: 'Hybrid', description: 'Best of both worlds'},
-    ];
+export default function ModeSelector({ selectedMode, onModeChange }) {
+  const modes = [
+    { id: "semantic", label: "Semantic" },
+    { id: "keyword", label: "Keyword" },
+    { id: "hybrid", label: "Hybrid" },
+  ];
 
-    return  (
-        <div className="flex justify-center gap-3 mb-8">
-            {modes.map((mode) => (
-                <button
-                key = {mode.id}
-                onClick={() => onModeChange(mode.id)}
-                className={`
-                    px-6 py-3 rounded-full font-medium transition-all duration-200
-                    ${
-                        selectedMode === mode.id
-                        ? 'big-blue-600 text-white shadow -lg scale-105'
-                        : 'bg-white text-gray-700 hover:bg-gray-50 border-2 border-gray-200'
-                    }
-                `}
-                title={mode.description}
-                >
-                    {mode.label}
-                </button>
-            ))}
-        </div>
-    );
-};
+  return (
+    <div className="mt-8 flex items-center justify-center gap-3">
+      {modes.map((m) => (
+        <button
+          key={m.id}
+          onClick={() => onModeChange(m.id)}
+          className={
+            selectedMode === m.id
+              ? "rounded-full border border-gray-900 bg-gray-900 text-white px-5 py-2.5 text-sm font-medium shadow-sm transition hover:bg-gray-800"
+              : "rounded-full border border-gray-300 bg-white text-gray-700 px-5 py-2.5 text-sm font-medium transition hover:bg-gray-50"
+          }
+        >
+          {m.label}
+        </button>
+      ))}
+    </div>
+  );
+}
