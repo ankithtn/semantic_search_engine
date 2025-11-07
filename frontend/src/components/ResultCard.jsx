@@ -1,107 +1,39 @@
-import React, {useState} from 'react';
-import { ChevronDown, ChevronUp, ExternalLink } from 'lucide-react';
+import React, { useState } from "react";
 
-const ResultCard = ({result, index}) => {
-    const [isExpanded, setIsExpanded] = useState(false);
+export default function ResultCard({ result, index }) {
+  const [isExpanded, setIsExpanded] = useState(false);
 
-    //Get score color based on relavance
-    const getScoreColor = (score) => {
-        if (score >= 0.8) return 'bg-green-100 text-green-800';
-        if (score >= 0.6) return 'bg-yellow-100 text-yellow-800';
-        return 'bg-gray-100 text-gray-800';
-    };
+  const abstract = result.abstract || result.snippet || "";
 
-    // Format score as percentage
-    const formatScore = (score) => {
-        return `${(score * 100).toFixed(0)}%`;
-    };
+  return (
+    <div className="rounded-xl border border-gray-200 bg-white p-5 shadow-sm hover:shadow-md transition">
+      {/* Header */}
+      <div className="flex justify-between text-sm text-gray-500 mb-2">
+        <span>Result #{index + 1}</span>
+      </div>
 
-    return (
-        <div className="bg-white rounded-lg border-2 border-gray-200 hover:border-blue-400
-                        p-6 transition-all duration-200 hover:shadow-lg">
-        {/*Header*/}
-        <div className='flex justify-between items-start mb-3'>
-            <span className='text-sm font-semibold text-gray-500'>
-                Result #{index + 1}
-            </span>
-            {result.score && (
-                <span className={`px-3 py-1 rounded-full text-sm font-semibold ${getScoreColor(result.score)}`}>
-                    {formatScore(result.score)} Match
-                </span>
-            )}
-        </div>
+      {/* Title */}
+      <h3 className="text-lg font-semibold text-gray-900 mb-2 leading-tight">
+        {result.title}
+      </h3>
 
-        {/* Title */}
-        <h3 className="text-xl font-bold text-gray-900 mb-3 leading-tight">
-            {result.title}
-        </h3>
+      {/* Metadata */}
+      <div className="text-sm text-gray-600 mb-3">
+        {result.year && <span>{result.year}</span>}
+      </div>
 
-        {/* Metadata */}
-        <div className="flex flex-wrap gap-4 text-sm text-gray-600 mb-4">
-            {result.year && (
-                <span className="flex items-center gap-1">
-                    {result.year}
-                </span>
-            )}
-            {result.journal && (
-                <span className="flex items-center gap-1">
-                    {result.journal}
-                </span>
-            )}
-            {result.pmid && (
-                <span className="flex items-center gap-1">
-                    PMID: {result.pmid}
-                </span>
-            )}
-        </div>
+      {/* Abstract */}
+      <p className="text-gray-700 leading-relaxed">
+        {isExpanded ? abstract : abstract.slice(0, 200)} 
+        {abstract.length > 200 && !isExpanded && "…"}
+      </p>
 
-        {/* Snippet */}
-        <div className="text-gray-700 leading-relaxed mb-4">
-            {isExpanded ? (
-                <p>{result.abstract || result.snippet}</p>
-            ) : (
-            <p>
-                {(result.abstract || result.snippet || '').substring(0, 200)}
-                {(result.abstract || result.snippet || '').length > 200 && '...'}
-            </p>
-        )}
-        </div>
-        
-        {/* Actions */}
-        <div className="flex justify-between items-center pt-4 border-t border-gray-200">
-            <button
-            onClick={() => setIsExpanded(!isExpanded)}
-            className="flex items-center gap-2 text-blue-600 hover:text-blue-800 
-                    font-medium transition-colors"
-            >
-                {isExpanded ? (
-                    <>
-                    <ChevronUp size={18} />
-                    Show Less
-                    </>
-                    ) : (
-                    <>
-                    <ChevronDown size={18} />
-                    View Full Abstract
-                    </>
-                )}
-            </button>
-            
-            {result.pmid && (
-                <a
-                href={getPubmedLink(result.pmid)}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 text-blue-600 hover:text-blue-800 
-                font-medium transition-colors"
-                >
-                    PubMed Link
-                    <ExternalLink size={16} />
-                </a>
-            )}
-            </div>
-        </div>
-    );
-};
-
-export default ResultCard;
+      <button
+        onClick={() => setIsExpanded(!isExpanded)}
+        className="text-gray-900 mt-3 text-sm font-medium hover:underline"
+      >
+        {isExpanded ? "Show Less" : "View Full Abstract"}
+      </button>
+    </div>
+  );
+}
