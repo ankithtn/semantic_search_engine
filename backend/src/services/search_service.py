@@ -70,12 +70,12 @@ class SearchService:
             elif mode == SearchMode.KEYWORD:
                 results = self._keyword_search(query, limit)
             else:
-                results = self.hybrid_search(query, limit)
+                results = self._hybrid_search(query, limit)
             
             search_time = time.time() - start_time
 
             # convert to SearchResult models
-            search_results = self.__format__results(results)
+            search_results = self._format_results(results)
 
             return search_results, search_time
         
