@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 const API_TIMEOUT = import.meta.env.VITE_API_TIMEOUT || 30000;
 
 const apiClient = axios.create({
@@ -51,8 +51,6 @@ export const searchPapers = async (query, mode = 'hybrid', limit = 10) => {
       mode,
       limit,
     });
-    
-    console.log('Search response:', response.data);
     return response.data;
   } catch (error) {
     console.error('Search API Error:', error);
