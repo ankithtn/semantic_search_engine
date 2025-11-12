@@ -17,10 +17,11 @@ class Settings:
 
     # CORS settings
     ALLOWED_ORIGINS = [
-        "https://localhost:5173",   # Vite dev server
-        "https://127.0.0.1:5173",
-        "https://localhost:3000",   
-        "https://127.0.0.1:3000",
+        "http://localhost:5173",  # Vite dev server
+        "http://localhost:3000",  # Alternative port
+        "http://127.0.0.1:5173",
+        "http://127.0.0.1:3000",
+        "*"  # Allowed all origins (DEVELOPMENT ONLY!)
     ]
 
     # Search settings
