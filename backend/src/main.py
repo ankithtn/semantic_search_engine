@@ -5,6 +5,7 @@ from contextlib import asynccontextmanager
 from .config.settings import settings
 from .api.routes import router
 from .services.search_service import search_service
+from .services.llm_service import initialize_llm_service
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -20,6 +21,22 @@ async def lifespan(app: FastAPI):
         print(f"Connected to weaviate -{total_docs} documents indexed")
     else:
         print("Warning: Weavaite connection failed")
+    
+    # Initialize LLM service
+    print("\n" + "="*50)
+    print("Initializing LLM service for RAG...")
+    print("="*50)
+    llm_service = initialize_llm_service()
+
+    if llm_service:
+        print("LLM service initializsed successfully")
+        print(f"Model: {llm_service.model}")
+        print("RAG capabilities: ENABLED")
+    else:
+        print("LLM Service initialzation failed")
+        print("RAG capabilities: DISABLED")
+        print("System will work in search-only mode")
+    print("="*50 + "\n")
 
     yield
 
@@ -51,10 +68,14 @@ app.include_router(router, prefix="/api", tags=["search"])
 @app.get("/")
 async def root():
     """Root endpoint - API information"""
+    from .services.llm_service import get_llm_service
+    llm_service = get_llm_service()
+
     return {
         "name": "Semantic Search API",
-        "Version": "1.0.0",
+        "Version": "2.0.0",
         "Status": "running",
+        "rag_enabled": llm_service is not None,
         "docs": "/docs",
         "health": "/api/health"
     }
