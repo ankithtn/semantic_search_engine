@@ -21,8 +21,15 @@ class Settings:
         "http://localhost:3000",  # Alternative port
         "http://127.0.0.1:5173",
         "http://127.0.0.1:3000",
-        "*"  # Allowed all origins (DEVELOPMENT ONLY!)
+        "*"  # Allowed all origins (FOr DEVELOPMENT ONLY!)
     ]
+
+    # Groq API settings (New)
+    GROQ_API_KEY: str = os.getenv("GROQ_API_KEY", "")
+    GROQ_MODEL: str = os.getenv("GROQ_MODEL", "llama-3.1-70b-versatile")
+    GROQ_MAX_TOKENS: int = int(os.getenv("GROQ_MAX_TOKENS", 2000))
+    GROQ_TEMPERATURE: float = float(os.getenv("GROQ_TEMPERATURE", 0.3))
+    
 
     # Search settings
     DEFAULT_SEARCH_LIMIT = 10
