@@ -61,6 +61,67 @@ class SearchResponse(BaseModel):
             }
         }
 
+# New modles for RAG
+
+class AIAnswer(BaseModel):
+    """AI-generated answer model"""
+    answer: str = Field(..., description="AI-generated answer with citations")
+    model: str = Field(..., description="LLM model used")
+    tokens_used: int = Field(0, description="Number of tokens used")
+    generation_time: float = Field(..., description="Time taken to generate answer in seconds")
+    error: Optional[str] = Field(None, description="Error message if generation failed")
+
+    class Config:
+        json_schema_extra = {
+            "example": {
+                "answer": "Based on recent research, diabetes treatments include...[1][2]",
+                "model": "llama-3.1-70b-versatile",
+                "tokens_used": 856,
+                "generation_time": 1.234,
+                "error": None
+            }
+        }
+
+class UnifiedSearchResponse(BaseModel):
+    """
+    Unified response containing both search results AND AI-generated answer
+    This is the NEW response format that includes RAG capabilities
+    """
+    # Original search fields
+    query:str = Field(..., description="Original user query")
+    mode:str = Field(...,description="Search mode used (semantic/hybrid/keyword)")
+
+    # Search results
+    results: List[SearchResult] = Field(..., description="List of retrieved papers")
+    total_count: int = Field(..., description="Total number of results")
+    search_time: float = Field(..., description="Time taken for search in seconds")
+
+    # AI-generated answer
+    ai_answer: Optional[AIAnswer] = Field(None, description="AI-generated answer based on retrieved papers")
+
+    # Metadata
+    papers_analyzed: int = Field(0, description="Number of papers sent to LLM")
+    rag_enabled: bool = Field(True, description="whether RAG was used")
+    
+    class config:
+        json_schema_extra = {
+            "example": {
+                "query": "What are the latest diabetes treatment",
+                "mode": "hybrid",
+                "results": [],
+                "total_count": 10,
+                "search_time": 0.234,
+                "ai_answer": {
+                    "answer": "Recent treatments include...[1][2]",
+                    "model": "llama-3.1-70b-versatile",
+                    "tokens_used": 856,
+                    "generation_time": 1.234
+                },
+                "papers_analyzed": 5,
+                "rag_enabled": True
+            }
+        }
+
 class HealthResponse(BaseModel):
     """Health check response"""
     status: str
