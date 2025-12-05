@@ -51,6 +51,17 @@ export const searchPapers = async (query, mode = 'hybrid', limit = 10) => {
       mode,
       limit,
     });
+
+    // Response includes:
+    // - results: array of papers
+    // - ai_answer: {answer, model, tokens_used, generation_time}
+    // - total_count, search_time, etc.
+    console.log('Response received:', {
+      papers: response.data.results?.length || 0,
+      hasAIAnswer: !!response.data.ai_answer,
+      ragEnabled: response.data.rag_enabled
+    });
+    
     return response.data;
   } catch (error) {
     console.error('Search API Error:', error);
