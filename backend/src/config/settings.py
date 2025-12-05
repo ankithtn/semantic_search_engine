@@ -10,11 +10,16 @@ class Settings:
     # Weaviate settings
     WEAVIATE_HOST: str = os.getenv("WEAVIATE_HOST", "localhost")
     WEAVIATE_PORT: int = int(os.getenv("WEAVIATE_PORT", "8080"))
+    WEAVIATE_GRPC_PORT: int = int(os.getenv("WEAVIATE_GRPC_PORT", 50051))
 
     #Application Settings
     ENVIRONMENT = os.getenv("ENVIRONMENT", "development")
     DEBUG = os.getenv("DEBUG", "True").lower() == "True"
 
+    # API settings
+    API_HOST: str = os.getenv("API_HOST", "0.0.0.0")
+    API_PORT: int = int(os.getenv("API_PORT", 8000))
+    
     # CORS settings
     ALLOWED_ORIGINS = [
         "http://localhost:5173",  # Vite dev server
