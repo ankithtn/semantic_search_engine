@@ -7,7 +7,7 @@ export default function AIAnswerCard({ aiAnswer, query, totalPapers}) {
     const hasError = aiAnswer.error;
     
     return (
-        <div className="w-full max-w-6xl mx-auto mb-6">
+        <div className="w-full max-w-6xl mx-auto mb-6 mt-5">
             <div className={`rounded-2xl border ${hasError ? 'border-rose-200 bg-rose-50' : 'border-gray-200 bg-white'} p-6 shadow-sm`}>
               {/* Header */}
               <div className="flex items-center gap-3 mb-4  pb-3 border-b border-gray-200">
