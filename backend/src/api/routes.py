@@ -55,13 +55,13 @@ async def unified_search(request: SearchRequest):
         
         if llm_service and len(results) > 0:
             try:
-                print(f"Generating AI answer from top {min(5, len(results))} papers...")
+                print(f"Generating AI answer from top {min(10, len(results))} papers...")
 
                 # Generate anwer from top 5 papers
                 llm_response = llm_service.generate_answer(
                     query = request.query.strip(),
-                    papers=results[:5],
-                    max_papers=5
+                    papers=results[:10],
+                    max_papers=10
                 )
 
                 ai_answer = AIAnswer(
