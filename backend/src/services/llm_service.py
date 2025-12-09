@@ -108,7 +108,7 @@ class LLMService:
 Journal: {paper.journal or 'N/A'} ({paper.year or 'N/A'})
 PMID: {paper.pmid or 'N/A'}
 Abstract: {abstract}
-Relevance Score: {paper.score:.3f if paper.score else 'N/A'}
+Relevance Score: {paper.score:.3f} if paper.score is not None else "Relevance Score: N/A"
 """
             context_parts.append(paper_text)
         
