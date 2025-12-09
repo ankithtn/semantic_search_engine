@@ -72,7 +72,7 @@ function App() {
             <AIAnswerCard 
               aiAnswer={aiAnswer}
               query={currentQuery}
-              totalPapers={Math.min(5, results.length)}
+              totalPapers={Math.min(10, results.length)}
             />
           )}
 
