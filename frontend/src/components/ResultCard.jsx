@@ -39,7 +39,7 @@ export default function ResultCard({ result, index }) {
       {/* Expand/collapse button */}
       <button
         onClick={() => setIsExpanded(!isExpanded)}
-        className="text-gray-900 mt-3 text-sm font-medium hover:underline"
+        className="text-gray-900 mt-3 text-sm font-medium hover"
       >
         {isExpanded ? "Show Less" : "Show more"}
       </button>
