@@ -225,7 +225,7 @@ def collect_papers_to_target():
                     
                     # Save intermediate results every 5K papers
                     if papers_collected % BATCH_SAVE_INTERVAL == 0:
-                        print(f"\n💾 Checkpoint: Saving {len(all_papers):,} papers...")
+                        print(f"\nCheckpoint: Saving {len(all_papers):,} papers...")
                         save_papers_to_file(all_papers, NEW_DATA_FILE)
                 else:
                     print(f"No new papers extracted (all duplicates)")
